@@ -15,3 +15,15 @@ feature 'reviewing' do
   end
 
 end
+
+feature 'reviews and restaurants'do
+  before do
+    restaurant = Restaurant.create name: 'KFC'
+    Review.create comment:'lovely', rating: 4, restaurant_id: restaurant.id
+  end
+  scenario 'when restaurant is deleted review is also deleted'do
+  visit ('/restaurants')
+  click_link 'Delete KFC'
+  expect(Review.all.length).to eq 0
+  end
+end
