@@ -1,0 +1,6 @@
+= form_for [@restaurant, @review] do |f|
+  = f.label :comment
+  = f.text_field :comment
+  = f.label :Rating
+  = f.select :rating, (1..5)
+  = f.submit 'Leave Review'

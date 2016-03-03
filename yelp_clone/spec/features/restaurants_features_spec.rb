@@ -8,16 +8,6 @@ feature 'restaurants' do
 			expect(page).to have_link 'Add a restaurant'
 		end
 	end
-	context 'restaurants have been added'do
-		before do
-			Restaurant.create(name: 'KFC')
-		end
-		scenario 'display restaurants'do
-			visit '/restaurants'
-			expect(page).to have_content('KFC')
-			expect(page).not_to have_content('No restaurants yet')
-		end
-	end
 	context 'creating restaurants'do
 		scenario 'prompts user to fill out a form, then displays the new restaurant'do
 			visit '/restaurants'
@@ -28,19 +18,27 @@ feature 'restaurants' do
 			expect(current_path).to eq '/restaurants'
 		end
 	end
+	context 'restaurants have been added'do
+		before do
+			Restaurant.create(name: 'KFC')
+		end
+		scenario 'display restaurants'do
+			visit '/restaurants'
+			expect(page).to have_content('KFC')
+			expect(page).not_to have_content('No restaurants yet')
+		end
+
 	context 'viewing restaurants'do
 
-	let!(:kfc){Restaurant.create(name:'KFC')}
+	let!(:mac){Restaurant.create(name:'mac')}
 		scenario 'lets a user view a restaurant'do
 			visit '/restaurants'
-			click_link 'KFC'
-			expect(page).to have_content 'KFC'
-			expect(current_path).to eq "/restaurants/#{kfc.id}"
+			click_link 'mac'
+			expect(page).to have_content 'mac'
+			expect(current_path).to eq "/restaurants/#{mac.id}"
 		end
 	end
 	context 'editing restaurants' do
-
-		before {Restaurant.create name: 'KFC'}
 
 		scenario 'let a user edit a restaurant' do
 			visit '/restaurants'
@@ -54,8 +52,6 @@ feature 'restaurants' do
 
 	context 'deleting restaurants' do
 
-		before { Restaurant.create name: 'KFC'}
-
 	  scenario 'removes a restaurant from the list' do
 		  visit '/restaurants'
 			click_link "Delete KFC"
@@ -63,6 +59,6 @@ feature 'restaurants' do
 			expect(page).to have_content "Restaurant deleted successfully"
   	end
 	end
-
+end
 
 end
