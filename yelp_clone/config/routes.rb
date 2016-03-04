@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  get 'reviews/new'
+  devise_for :users
+  # get 'reviews/new'
+
+  root to: "restaurants#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -57,6 +60,6 @@ Rails.application.routes.draw do
   #   end
   get 'restaurants' => 'restaurants#index'
   resources :restaurants do
-    resources :reviews    
+    resources :reviews
   end
 end
