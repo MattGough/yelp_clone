@@ -8,13 +8,8 @@ class RestaurantsController < ApplicationController
 	end
 
 	def create
-		@restaurant = Restaurant.new(restaurant_params)
-		if @restaurant.save
-		  redirect_to '/restaurants'
-	  else
-		  flash[:notice] = "The restaurant already exists"
-			redirect_to '/restaurants/new'
-	  end
+		@restaurant = Restaurant.create(restaurant_params)
+			redirect_to '/restaurants'
 	end
 
 	def restaurant_params
