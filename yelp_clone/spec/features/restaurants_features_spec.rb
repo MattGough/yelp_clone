@@ -27,7 +27,20 @@ feature 'restaurants' do
 			expect(page).to have_content('KFC')
 			expect(page).not_to have_content('No restaurants yet')
 		end
-
+    scenario 'Restaurants cannot be added twice' do
+			visit '/restaurants'
+			click_link 'Add a restaurant'
+			fill_in 'Name', with: 'KFC'
+			click_button 'Create Restaurant'
+			expect(Restaurant.all.count).to be 1
+			expect(page).to have_content "The restaurant already exists"
+		end
+		scenario 'restaurants name has to be minimum 3 characters' do
+			visit '/restaurants'
+			click_link 'Add a restaurant'
+			fill_in "Name", with: 'KF'
+			expect(page).to have_content 'Name has to be minimum 3 characters'
+		end
 	context 'viewing restaurants'do
 
 	let!(:mac){Restaurant.create(name:'mac')}
