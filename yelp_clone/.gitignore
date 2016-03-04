@@ -11,3 +11,5 @@
 /log/*
 !/log/.keep
 /tmp
+
+/yelp_clone/config/secrets.yml
